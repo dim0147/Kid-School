@@ -1,5 +1,6 @@
 <!doctype html>
 <html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
+
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -9,75 +10,72 @@
 
     <title>{{ config('app.name', 'Laravel') }}</title>
 
-    <!-- Scripts -->
-    <script src="{{ asset('js/app.js') }}" defer></script>
 
-    <!-- Fonts -->
-    <link rel="dns-prefetch" href="//fonts.gstatic.com">
-    <link href="https://fonts.googleapis.com/css?family=Nunito" rel="stylesheet">
+    <link rel="shortcut icon" href="favicon.ico" type="image/x-icon" />
+    <link href="{{ asset('css/lib/style.css') }}" rel="stylesheet" type="text/css">
+    <link href="{{ asset('css/lib/shortcodes.css') }}" rel="stylesheet" type="text/css">
+    <link href="{{ asset('css/lib/responsive.css') }}" rel="stylesheet" type="text/css">
+    {{-- <link href="{{ asset('css/lib/font-awesome.min.css') }}" rel="stylesheet" type="text/css"> --}}
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.1.0/css/font-awesome.min.css"
+        integrity="sha512-77kidyGDJGWWmJ0MVO0CRp+6nRgZRK67frUVBRvnL1zCcmcw9FkCQxpDHq52SebW+KWTAnnuX0Qk2/MQWogWoQ=="
+        crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <link rel='stylesheet' id='layerslider-css' href="{{ asset('css/lib/layerslider.css') }}" type='text/css'
+        media='all' />
+
+    <link href="{{ asset('css/lib/prettyPhoto.css') }}" rel="stylesheet" type="text/css" media="all" />
+    <!--[if IE 7]>
+<link href="{{ asset('css/lib/font-awesome-ie7.css') }}" rel="stylesheet" type="text/css">
+<![endif]-->
+    <!--[if lt IE 9]>
+<script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
+<![endif]-->
+
+    <link href="https://fonts.googleapis.com/css?family=Lato:300,400,700,300italic,400italic,700italic" rel='stylesheet'
+        type='text/css'>
+    <link
+        href="https://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800"
+        rel='stylesheet' type='text/css'>
+    <link href="https://fonts.googleapis.com/css?family=Bubblegum+Sans" rel='stylesheet' type='text/css'>
+
+    <script src="{{ asset('js/lib/modernizr-2.6.2.min.js') }}"></script>
+
 
     <!-- Styles -->
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
 </head>
-<body>
-    <div id="app">
-        <nav class="navbar navbar-expand-md navbar-light bg-white shadow-sm">
-            <div class="container">
-                <a class="navbar-brand" href="{{ url('/') }}">
-                    {{ config('app.name', 'Laravel') }}
-                </a>
-                <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="{{ __('Toggle navigation') }}">
-                    <span class="navbar-toggler-icon"></span>
-                </button>
 
-                <div class="collapse navbar-collapse" id="navbarSupportedContent">
-                    <!-- Left Side Of Navbar -->
-                    <ul class="navbar-nav mr-auto">
+<body class="main">
 
-                    </ul>
-
-                    <!-- Right Side Of Navbar -->
-                    <ul class="navbar-nav ml-auto">
-                        <!-- Authentication Links -->
-                        @guest
-                            @if (Route::has('login'))
-                                <li class="nav-item">
-                                    <a class="nav-link" href="{{ route('login') }}">{{ __('Login') }}</a>
-                                </li>
-                            @endif
-
-                            @if (Route::has('register'))
-                                <li class="nav-item">
-                                    <a class="nav-link" href="{{ route('register') }}">{{ __('Register') }}</a>
-                                </li>
-                            @endif
-                        @else
-                            <li class="nav-item dropdown">
-                                <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
-                                    {{ Auth::user()->name }}
-                                </a>
-
-                                <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
-                                    <a class="dropdown-item" href="{{ route('logout') }}"
-                                       onclick="event.preventDefault();
-                                                     document.getElementById('logout-form').submit();">
-                                        {{ __('Logout') }}
-                                    </a>
-
-                                    <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
-                                        @csrf
-                                    </form>
-                                </div>
-                            </li>
-                        @endguest
-                    </ul>
-                </div>
-            </div>
-        </nav>
-
-        <main class="py-4">
-            @yield('content')
-        </main>
+    <div class="wrapper">
+        @include('layouts.partials.header')
+        @yield('content')
+        @include('layouts.partials.footer')
     </div>
+
+    <script type="text/javascript" src="{{ asset('js/lib/jquery.js') }}"></script>
+    <script type="text/javascript" src="{{ asset('js/lib/jquery-migrate.min.js') }}"></script>
+    <script type="text/javascript" src="{{ asset('js/lib/jquery.validate.min.js') }}"></script>
+    <script type="text/javascript" src="{{ asset('js/lib/jquery-easing-1.3.js') }}"></script>
+    <script type="text/javascript" src="{{ asset('js/lib/jquery.sticky.js') }}"></script>
+    <script type="text/javascript" src="{{ asset('js/lib/jquery.nicescroll.min.js') }}"></script>
+    <script type="text/javascript" src="{{ asset('js/lib/jquery.inview.js') }}"></script>
+    <script type="text/javascript" src="{{ asset('js/lib/validation.js') }}"></script>
+    <script type="text/javascript" src="{{ asset('js/lib/jquery.tipTip.minified.js') }}"></script>
+    <script type="text/javascript" src="{{ asset('js/lib/jquery.bxslider.min.js') }}"></script>
+    <script type="text/javascript" src="{{ asset('js/lib/jquery.prettyPhoto.js') }}"></script>
+    <script type="text/javascript" src="{{ asset('js/lib/twitter/jquery.tweet.min.js') }}"></script>
+    <script type="text/javascript" src="{{ asset('js/lib/jquery.parallax-1.1.3.js') }}"></script>
+    <script type="text/javascript" src="{{ asset('js/lib/shortcodes.js') }}"></script>
+    <script type="text/javascript" src="{{ asset('js/lib/custom.js') }}"></script>
+    <script type="text/javascript" src="{{ asset('js/lib/jquery-transit-modified.js') }}"></script>
+    <script type="text/javascript" src="{{ asset('js/lib/layerslider.kreaturamedia.jquery.js') }}"></script>
+    <script type='text/javascript' src="{{ asset('js/lib/greensock.js') }}"></script>
+    <script type='text/javascript' src="{{ asset('js/lib/layerslider.transitions.js') }}"></script>
+
+
+    @yield('javascript')
+
+
 </body>
+
 </html>
