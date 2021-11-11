@@ -8,16 +8,15 @@
     <!-- CSRF Token -->
     <meta name="csrf-token" content="{{ csrf_token() }}">
 
-    <title>{{ config('app.name', 'Laravel') }}</title>
+    <title>@yield('title')</title>
 
 
     <link rel="shortcut icon" href="favicon.ico" type="image/x-icon" />
     <link href="{{ asset('css/lib/style.css') }}" rel="stylesheet" type="text/css">
     <link href="{{ asset('css/lib/shortcodes.css') }}" rel="stylesheet" type="text/css">
     <link href="{{ asset('css/lib/responsive.css') }}" rel="stylesheet" type="text/css">
-    {{-- <link href="{{ asset('css/lib/font-awesome.min.css') }}" rel="stylesheet" type="text/css"> --}}
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.1.0/css/font-awesome.min.css"
-        integrity="sha512-77kidyGDJGWWmJ0MVO0CRp+6nRgZRK67frUVBRvnL1zCcmcw9FkCQxpDHq52SebW+KWTAnnuX0Qk2/MQWogWoQ=="
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"
+        integrity="sha512-SfTiTlX6kk+qitfevl/7LibUOeJWlt9rbyDn92a1DqWOw9vWG2MFoays0sgObmWazO5BQPiFucnnEAjpAB+/Sw=="
         crossorigin="anonymous" referrerpolicy="no-referrer" />
     <link rel='stylesheet' id='layerslider-css' href="{{ asset('css/lib/layerslider.css') }}" type='text/css'
         media='all' />

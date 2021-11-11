@@ -1,7 +1,10 @@
 <?php
 
+use App\Http\Controllers\Admin\PermissionController;
+use App\Http\Controllers\Admin\RoleController;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
+use Spatie\Permission\Models\Role;
 
 /*
 |--------------------------------------------------------------------------
@@ -13,6 +16,12 @@ use Illuminate\Support\Facades\Route;
 | contains the "web" middleware group. Now create something great!
 |
 */
+
+Route::prefix('admin')->as('admin.')->group(function () {
+    Route::resource('permissions', PermissionController::class)->except('show');
+    Route::resource('roles', RoleController::class)->except('show');
+});
+
 
 Auth::routes();
 
