@@ -17,7 +17,7 @@ use Spatie\Permission\Models\Role;
 |
 */
 
-Route::prefix('admin')->as('admin.')->group(function () {
+Route::prefix('admin')->as('admin.')->middleware('auth')->group(function () {
     Route::resource('permissions', PermissionController::class)->except('show');
     Route::resource('roles', RoleController::class)->except('show');
 });
