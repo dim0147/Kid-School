@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\Admin\PermissionController;
 use App\Http\Controllers\Admin\RoleController;
+use App\Http\Controllers\Admin\UserController;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 use Spatie\Permission\Models\Role;
@@ -18,10 +19,12 @@ use Spatie\Permission\Models\Role;
 */
 
 Route::prefix('admin')->as('admin.')->middleware('auth')->group(function () {
-    Route::resource('permissions', PermissionController::class)->except('show');
-    Route::resource('roles', RoleController::class)->except('show');
-});
+    Route::resource('permissions', PermissionController::class)->except('show')->middleware('role:admin');
 
+    Route::resource('roles', RoleController::class)->except('show')->middleware('role:admin');
+
+    Route::resource('users', UserController::class)->only(['index', 'edit', 'update', 'destroy'])->middleware('role:admin');
+});
 
 Auth::routes();
 
