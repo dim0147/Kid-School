@@ -14,6 +14,6 @@ class ClassRoom extends Model
      */
     public function users()
     {
-        return $this->belongsToMany(User::class, 'class_room_users', 'class_room_id', 'user_id')->using(ClassRoomUser::class);
+        return $this->belongsToMany(User::class, 'class_room_users', 'class_room_id', 'user_id');
     }
 }

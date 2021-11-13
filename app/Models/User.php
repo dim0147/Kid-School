@@ -48,6 +48,6 @@ class User extends Authenticatable
      */
     public function classRooms()
     {
-        return $this->belongsToMany(ClassRoom::class, 'class_room_users', 'user_id', 'class_room_id')->using(ClassRoomUser::class);
+        return $this->belongsToMany(ClassRoom::class, 'class_room_users', 'user_id', 'class_room_id');
     }
 }
