@@ -10,9 +10,9 @@ class ClassRoom extends Model
     use HasFactory;
 
     /**
-     * The class's users 
+     * The class's teachers 
      */
-    public function users()
+    public function teachers()
     {
         return $this->belongsToMany(User::class, 'class_room_users', 'class_room_id', 'user_id');
     }

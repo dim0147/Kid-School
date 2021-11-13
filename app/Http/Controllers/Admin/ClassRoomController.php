@@ -3,6 +3,8 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Models\ClassRoom;
+use App\Models\User;
 use Illuminate\Http\Request;
 
 class ClassRoomController extends Controller
@@ -14,7 +16,9 @@ class ClassRoomController extends Controller
      */
     public function index()
     {
-        //
+        $classRooms = ClassRoom::with('teachers')->get()->toArray();
+
+        return view('admin.classrooms.index', compact('classRooms'));
     }
 
     /**
@@ -24,7 +28,9 @@ class ClassRoomController extends Controller
      */
     public function create()
     {
-        //
+        $teachers = User::query()->role('teacher')->get();
+
+        return view('admin.classrooms.create', compact('teachers'));
     }
 
     /**
@@ -35,41 +41,88 @@ class ClassRoomController extends Controller
      */
     public function store(Request $request)
     {
-        //
-    }
+        $request->validate([
+            'name' => 'required|string|unique:class_rooms,name',
+            'description' => 'required|string',
+            'open_at' => 'required|date',
+            'status' => 'required|in:open,close',
+            'teachers' => 'array',
+        ]);
 
+        $classRoom = new ClassRoom;
+
+        $classRoom->name = $request->name;
+        $classRoom->description = $request->description;
+        $classRoom->open_at = $request->open_at;
+        $classRoom->status = $request->status;
+
+        $classRoom->save();
+
+        if ($request->teachers != null) {
+            $classRoom->teachers()->attach($request->teachers);
+        }
+
+        return back()->with('success', 'Create classroom success');
+    }
 
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  int  $id
+     * @param  \App\Models\ClassRoom  $classroom
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function edit(ClassRoom $classroom)
     {
-        //
+        $teachers = User::role('teacher')->get();
+        $classroom->load('teachers');
+        $classroom = $classroom->toArray();
+
+        return view('admin.classrooms.edit', compact('teachers', 'classroom'));
     }
 
     /**
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
+     * @param  \App\Models\ClassRoom  $classroom
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Request $request, ClassRoom $classroom)
     {
-        //
+        $request->validate([
+            'name' => 'required|string|unique:class_rooms,name,'.$classroom->id,
+            'description' => 'required|string',
+            'open_at' => 'required|date',
+            'status' => 'required|in:open,close',
+            'teachers' => 'array',
+        ]);
+
+        $classroom->name = $request->name;
+        $classroom->description = $request->description;
+        $classroom->open_at = $request->open_at;
+        $classroom->status = $request->status;
+
+        $classroom->teachers()->detach();
+
+        if($request->teachers != null) {
+            $classroom->teachers()->attach($request->teachers);
+        }
+
+        $classroom->save();
+
+        return back()->with('success', 'Edit classroom successfully');
     }
 
     /**
      * Remove the specified resource from storage.
      *
-     * @param  int  $id
+     * @param  \App\Models\ClassRoom  $classroom
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(ClassRoom $classroom)
     {
-        //
+        $classroom->delete();
+
+        return back()->with('success', 'Delete classroom successfully');
     }
 }

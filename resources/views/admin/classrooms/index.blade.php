@@ -1,7 +1,7 @@
 @extends('layouts.admin.app')
 
 @section('title')
-    All Teachers
+    All Class Rooms
 @endsection
 
 @section('content')
@@ -19,9 +19,9 @@
                 </div>
 
                 <div class="d-flex flex-row-reverse mt-1">
-                    <a href="{{ route('admin.teachers.create') }}" class="ml-auto dt-sc-button small"><i
+                    <a href="{{ route('admin.classrooms.create') }}" class="ml-auto dt-sc-button small"><i
                             class="fa fa-plus" aria-hidden="true"></i>
-                        New Teacher</a>
+                        New Class Room</a>
                 </div>
 
                 <table class="table table-striped mt-1">
@@ -29,30 +29,34 @@
                         <tr>
                             <th class="text-center" scope="col">ID</th>
                             <th class="text-center" scope="col">Name</th>
-                            <th class="text-center" scope="col">Email</th>
-                            <th class="text-center" scope="col">Classes</th>
+                            <th class="text-center" scope="col">Description</th>
+                            <th class="text-center" scope="col">Teachers</th>
+                            <th class="text-center" scope="col">Open At</th>
+                            <th class="text-center" scope="col">Status</th>
                             <th class="text-center" scope="col">Created At</th>
                             <th class="text-center" scope="col">Action</th>
                         </tr>
                     </thead>
                     <tbody>
-                        @foreach ($teachers as $teacher)
+                        @foreach ($classRooms as $classRoom)
                             @php
-                                $classRoomNameArr = Arr::pluck($teacher['class_rooms'], 'name');
-                                $classRoomNames = implode(', ', $classRoomNameArr);
+                                $teacherNameArr = Arr::pluck($classRoom['teachers'], 'name');
+                                $teacherNames = implode(', ', $teacherNameArr);
                             @endphp
                             <tr>
-                                <th class="text-center" scope="row">{{ $teacher['id'] }}</th>
-                                <td>{{ $teacher['name'] }}</td>
-                                <td>{{ $teacher['email'] }}</td>
-                                <td>{{ $classRoomNames }}</td>
-                                <td>{{ date_format(date_create($teacher['created_at']),"d/m/Y h:m:s A") }}</td>
+                                <th class="text-center" scope="row">{{ $classRoom['id'] }}</th>
+                                <td>{{ $classRoom['name'] }}</td>
+                                <td>{{ Str::limit($classRoom['description'], 20) }}</td>
+                                <td>{{ $teacherNames }}</td>
+                                <td>{{ date_format(date_create($classRoom['open_at']), 'd/m/Y') }}</td>
+                                <td>{{ $classRoom['status'] }}</td>
+                                <td>{{ date_format(date_create($classRoom['created_at']), 'd/m/Y') }}</td>
                                 <td>
-                                    <a href="{{ route('admin.teachers.edit', $teacher['id']) }}"
+                                    <a href="{{ route('admin.classrooms.edit', $classRoom['id']) }}"
                                         class="dt-sc-button small">
                                         <i class="fa fa-edit"></i> Edit</a>
                                     <form class="d-inline-block"
-                                        action="{{ route('admin.teachers.destroy', $teacher['id']) }}" method="POST">
+                                        action="{{ route('admin.classrooms.destroy', $classRoom['id']) }}" method="POST">
                                         @csrf
                                         @method('delete')
                                         <a href="#" onclick="this.parentNode.submit()" class="dt-sc-button small red"><i
