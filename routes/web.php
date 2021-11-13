@@ -27,7 +27,7 @@ Route::prefix('admin')->as('admin.')->middleware('auth')->group(function () {
 
     Route::resource('users', UserController::class)->only(['index', 'edit', 'update', 'destroy'])->middleware('role:admin');
 
-    Route::resource('teachers', AdminTeacherController::class)->except('show');
+    Route::resource('teachers', AdminTeacherController::class)->except('show')->middleware('role:admin|moderator');
 
     Route::resource('classrooms', AdminClassRoomController::class)->except('show');
 });
