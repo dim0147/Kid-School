@@ -38,25 +38,25 @@
                         </tr>
                     </thead>
                     <tbody>
-                        @foreach ($classRooms as $classRoom)
+                        @foreach ($classrooms as $classroom)
                             @php
-                                $teacherNameArr = Arr::pluck($classRoom['teachers'], 'name');
+                                $teacherNameArr = Arr::pluck($classroom['teachers'], 'name');
                                 $teacherNames = implode(', ', $teacherNameArr);
                             @endphp
                             <tr>
-                                <th class="text-center" scope="row">{{ $classRoom['id'] }}</th>
-                                <td>{{ $classRoom['name'] }}</td>
-                                <td>{{ Str::limit($classRoom['description'], 20) }}</td>
+                                <th class="text-center" scope="row">{{ $classroom['id'] }}</th>
+                                <td>{{ $classroom['name'] }}</td>
+                                <td>{{ Str::limit($classroom['description'], 20) }}</td>
                                 <td>{{ $teacherNames }}</td>
-                                <td>{{ date_format(date_create($classRoom['open_at']), 'd/m/Y') }}</td>
-                                <td>{{ $classRoom['status'] }}</td>
-                                <td>{{ date_format(date_create($classRoom['created_at']), 'd/m/Y') }}</td>
+                                <td>{{ date_format(date_create($classroom['open_at']), 'd/m/Y') }}</td>
+                                <td>{{ $classroom['status'] }}</td>
+                                <td>{{ date_format(date_create($classroom['created_at']), 'd/m/Y') }}</td>
                                 <td>
-                                    <a href="{{ route('admin.classrooms.edit', $classRoom['id']) }}"
+                                    <a href="{{ route('admin.classrooms.edit', $classroom['id']) }}"
                                         class="dt-sc-button small">
                                         <i class="fa fa-edit"></i> Edit</a>
                                     <form class="d-inline-block"
-                                        action="{{ route('admin.classrooms.destroy', $classRoom['id']) }}" method="POST">
+                                        action="{{ route('admin.classrooms.destroy', $classroom['id']) }}" method="POST">
                                         @csrf
                                         @method('delete')
                                         <a href="#" onclick="this.parentNode.submit()" class="dt-sc-button small red"><i

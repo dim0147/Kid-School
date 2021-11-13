@@ -16,9 +16,9 @@ class ClassRoomController extends Controller
      */
     public function index()
     {
-        $classRooms = ClassRoom::with('teachers')->get()->toArray();
+        $classrooms = ClassRoom::with('teachers')->get()->toArray();
 
-        return view('admin.classrooms.index', compact('classRooms'));
+        return view('admin.classrooms.index', compact('classrooms'));
     }
 
     /**
@@ -49,17 +49,17 @@ class ClassRoomController extends Controller
             'teachers' => 'array',
         ]);
 
-        $classRoom = new ClassRoom;
+        $classroom = new ClassRoom;
 
-        $classRoom->name = $request->name;
-        $classRoom->description = $request->description;
-        $classRoom->open_at = $request->open_at;
-        $classRoom->status = $request->status;
+        $classroom->name = $request->name;
+        $classroom->description = $request->description;
+        $classroom->open_at = $request->open_at;
+        $classroom->status = $request->status;
 
-        $classRoom->save();
+        $classroom->save();
 
         if ($request->teachers != null) {
-            $classRoom->teachers()->attach($request->teachers);
+            $classroom->teachers()->attach($request->teachers);
         }
 
         return back()->with('success', 'Create classroom success');

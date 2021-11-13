@@ -38,14 +38,14 @@
                     <tbody>
                         @foreach ($teachers as $teacher)
                             @php
-                                $classRoomNameArr = Arr::pluck($teacher['class_rooms'], 'name');
-                                $classRoomNames = implode(', ', $classRoomNameArr);
+                                $classroomNameArr = Arr::pluck($teacher['class_rooms'], 'name');
+                                $classroomNames = implode(', ', $classroomNameArr);
                             @endphp
                             <tr>
                                 <th class="text-center" scope="row">{{ $teacher['id'] }}</th>
                                 <td>{{ $teacher['name'] }}</td>
                                 <td>{{ $teacher['email'] }}</td>
-                                <td>{{ $classRoomNames }}</td>
+                                <td>{{ $classroomNames }}</td>
                                 <td>{{ date_format(date_create($teacher['created_at']),"d/m/Y h:m:s A") }}</td>
                                 <td>
                                     <a href="{{ route('admin.teachers.edit', $teacher['id']) }}"
