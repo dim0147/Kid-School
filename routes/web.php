@@ -29,7 +29,7 @@ Route::prefix('admin')->as('admin.')->middleware('auth')->group(function () {
 
     Route::resource('teachers', AdminTeacherController::class)->except('show')->middleware('role:admin|moderator');
 
-    Route::resource('classrooms', AdminClassRoomController::class)->except('show');
+    Route::resource('classrooms', AdminClassRoomController::class)->except('show')->middleware('role:admin|moderator');
 });
 
 Auth::routes();
