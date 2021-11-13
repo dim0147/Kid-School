@@ -1,9 +1,10 @@
 <?php
 
-use App\Http\Controllers\Admin\ClassRoomController as AdminClassRoomController;
 use App\Http\Controllers\Admin\PermissionController;
 use App\Http\Controllers\Admin\RoleController;
 use App\Http\Controllers\Admin\UserController;
+use App\Http\Controllers\Admin\ClassRoomController as AdminClassRoomController;
+use App\Http\Controllers\Admin\TeacherController as AdminTeacherController;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 use Spatie\Permission\Models\Role;
@@ -25,6 +26,8 @@ Route::prefix('admin')->as('admin.')->middleware('auth')->group(function () {
     Route::resource('roles', RoleController::class)->except('show')->middleware('role:admin');
 
     Route::resource('users', UserController::class)->only(['index', 'edit', 'update', 'destroy'])->middleware('role:admin');
+
+    Route::resource('teachers', AdminTeacherController::class)->except('show');
 
     Route::resource('classrooms', AdminClassRoomController::class)->except('show');
 });
