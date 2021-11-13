@@ -17,6 +17,7 @@ class CreateClassRoomsTable extends Migration
             $table->id();
             $table->string('name', 100);
             $table->text('description');
+            $table->string('img', 50);
             $table->dateTime('open_at');
             $table->enum('status', array('open', 'close'));
             $table->timestamps();

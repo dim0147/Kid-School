@@ -17,7 +17,7 @@
                     <h4 class="dt-sc-titled-box-title"> Create ClassRoom </h4>
                     <div class="dt-sc-titled-box-content">
                         <form action="{{ route('admin.classrooms.store') }}" method="POST"
-                            class="d-flex flex-column align-items-center">
+                            class="d-flex flex-column align-items-center" enctype="multipart/form-data">
                             @csrf
                             @error('name')
                                 <div class="text-danger">{{ $message }}</div>
@@ -66,6 +66,15 @@
                             @error('teachers')
                                 <div class="text-danger">{{ $message }}</div>
                             @enderror
+
+                            @error('img')
+                                <div class="text-danger">{{ $message }}</div>
+                            @enderror
+                            <div class="form-set d-flex justify-content-center align-items-center mt-1">
+                                <label for="img" class="pr-1">Image: </label>
+                                <input type="file" name="img" accept="image/*">
+                            </div>
+
 
                             <button type="submit" class="dt-sc-button medium">Create</button>
                             @if (session('success'))

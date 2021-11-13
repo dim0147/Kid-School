@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Models\ClassRoom;
 use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Config;
 
 class ClassRoomController extends Controller
 {
@@ -47,7 +48,12 @@ class ClassRoomController extends Controller
             'open_at' => 'required|date',
             'status' => 'required|in:open,close',
             'teachers' => 'array',
+            'img' => 'required|image',
         ]);
+
+        $request->img->store(Config::get('custom.img_path.storage.class_room'));
+
+        $imgName = $request->img->hashName();
 
         $classroom = new ClassRoom;
 
@@ -55,6 +61,7 @@ class ClassRoomController extends Controller
         $classroom->description = $request->description;
         $classroom->open_at = $request->open_at;
         $classroom->status = $request->status;
+        $classroom->img = $imgName;
 
         $classroom->save();
 
@@ -90,21 +97,31 @@ class ClassRoomController extends Controller
     public function update(Request $request, ClassRoom $classroom)
     {
         $request->validate([
-            'name' => 'required|string|unique:class_rooms,name,'.$classroom->id,
+            'name' => 'required|string|unique:class_rooms,name,' . $classroom->id,
             'description' => 'required|string',
             'open_at' => 'required|date',
             'status' => 'required|in:open,close',
             'teachers' => 'array',
+            'img' => 'image',
         ]);
+
+
 
         $classroom->name = $request->name;
         $classroom->description = $request->description;
         $classroom->open_at = $request->open_at;
         $classroom->status = $request->status;
 
+        if ($request->img != null) {
+
+            $request->img->store(Config::get('custom.img_path.storage.class_room'));
+
+            $classroom->img = $request->img->hashName();
+        }
+
         $classroom->teachers()->detach();
 
-        if($request->teachers != null) {
+        if ($request->teachers != null) {
             $classroom->teachers()->attach($request->teachers);
         }
 

@@ -17,7 +17,7 @@
                     <h4 class="dt-sc-titled-box-title"> Edit ClassRoom </h4>
                     <div class="dt-sc-titled-box-content">
                         <form action="{{ route('admin.classrooms.update', $classroom['id']) }}" method="POST"
-                            class="d-flex flex-column align-items-center">
+                            class="d-flex flex-column align-items-center" enctype="multipart/form-data">
                             @csrf
                             @method('PUT')
 
@@ -69,14 +69,29 @@
                                         $checked = in_array($teacher->id, $classroomTeacherIdArr) ? 'checked' : '';
                                     @endphp
                                     <li>
-                                        <input {{ $checked }} value="{{ $teacher->id }}" name="teachers[]" class="mr-1"
-                                            type="checkbox"><span>{{ $teacher->name }} ({{ $teacher->email }})</span>
+                                        <input {{ $checked }} value="{{ $teacher->id }}" name="teachers[]"
+                                            class="mr-1" type="checkbox"><span>{{ $teacher->name }}
+                                            ({{ $teacher->email }})</span>
                                     </li>
                                 @endforeach
                             </ul>
                             @error('teachers')
                                 <div class="text-danger">{{ $message }}</div>
                             @enderror
+
+                            @error('img')
+                                <div class="text-danger">{{ $message }}</div>
+                            @enderror
+                            <div class="form-set d-flex justify-content-center align-items-center mt-1">
+                                <label for="img" class="pr-1">Image: </label>
+                                <input type="file" name="img" accept="image/*">
+                            </div>
+
+
+                            <div class="w-50">
+                                <img src="{{ Utils::getRootImgPath('custom.img_path.public.class_room', $classroom['img']) }}"
+                                    alt="" class="w-100">
+                            </div>
 
                             <button type="submit" class="dt-sc-button medium">Save</button>
                             @if (session('success'))

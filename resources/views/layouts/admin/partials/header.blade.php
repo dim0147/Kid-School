@@ -54,12 +54,34 @@
                             </li>
                         </ul>
                     </li>
-                    <li class="green {{ isActiveMenu('admin.users.index') }} "> <a href="{{ route('admin.users.index') }}">
+                    <li
+                        class="menu-item-simple-parent menu-item-depth-0 green {{ isActiveMenu('admin.users.index') }} ">
+                        <a href="{{ route('admin.users.index') }}">
                             Users
-                        </a> </li>
+                        </a>
+                        <ul class="sub-menu">
+                            <li class="{{ isActiveMenu('admin.teachers.index') }}"> <a
+                                    href="{{ route('admin.teachers.index') }}"><i class="fa fa-user"></i>
+                                    Teacher
+                                </a>
+                            </li>
+                        </ul>
+                    </li>
 
 
-                    <li class="yellow"> <a href="services.html"> Class Room </a> </li>
+                    <li
+                        class="menu-item-simple-parent menu-item-depth-0 yellow {{ isActiveMenu('admin.classrooms.index') }} ">
+                        <a href="{{ route('admin.classrooms.index') }}">
+                            Class Rooms
+                        </a>
+                        <ul class="sub-menu">
+                            <li class="{{ isActiveMenu('admin.classrooms.create') }}"> <a
+                                    href="{{ route('admin.classrooms.create') }}"><i class="fa fa-plus"></i>
+                                    Create
+                                </a>
+                            </li>
+                        </ul>
+                    </li>
                     {{-- <li class="menu-item-simple-parent menu-item-depth-0 blue"><a href="portfolio-four-column.html"
                             title="">Portfolio</a>
                         <ul class="sub-menu">
@@ -203,7 +225,7 @@
                 </ul>
             </nav>
 
-        
+
         </div>
     </div>
 
